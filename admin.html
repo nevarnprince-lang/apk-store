@@ -7,66 +7,53 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Comfortaa:wght@500;700&display=swap');
-        body { font-family: 'Quicksand', sans-serif; background-color: #f7f3f0; color: #5c4a3c; }
+        body { font-family: 'Quicksand', sans-serif; background-color: #f8f6f2; color: #5c4a3c; }
         .heading-font { font-family: 'Comfortaa', cursive; }
-        .input-coffee { background: white; border: 2px solid #e8e1d9; border-radius: 1.2rem; padding: 1rem; width: 100%; transition: 0.3s; }
+        .input-coffee { background: white; border: 2px solid #eee8e2; border-radius: 1.2rem; padding: 1rem; width: 100%; transition: 0.3s; font-weight: 600; }
         .input-coffee:focus { border-color: #a68b7c; outline: none; box-shadow: 0 0 0 4px rgba(166, 139, 124, 0.1); }
-        .btn-brew { background-color: #a68b7c; color: white; border-radius: 1.2rem; font-weight: bold; width: 100%; padding: 1.2rem; transition: 0.3s; }
+        .btn-brew { background-color: #a68b7c; color: white; border-radius: 1.2rem; font-weight: 700; width: 100%; padding: 1.2rem; transition: 0.3s; }
         .btn-brew:hover { background-color: #5c4a3c; }
     </style>
 </head>
-<body class="p-6">
+<body class="p-6 md:p-12">
 
-    <div class="max-w-2xl mx-auto mt-10">
+    <div class="max-w-2xl mx-auto">
         <div class="flex justify-between items-center mb-10">
-            <h1 class="heading-font text-3xl font-bold">New Recipe 🖋️</h1>
-            <a href="index.html" class="text-stone-400 font-bold hover:text-stone-800">← Back to Menu</a>
+            <h1 class="heading-font text-3xl font-bold text-stone-800">Brew Studio</h1>
+            <a href="index.html" class="text-stone-400 font-bold hover:text-stone-800">← Back</a>
         </div>
 
         <div id="status-msg" class="hidden mb-6 p-4 rounded-2xl bg-stone-800 text-white text-center font-bold"></div>
 
-        <form id="upload-form" class="bg-white rounded-[2.5rem] p-10 border border-stone-100 shadow-sm space-y-6">
+        <form id="upload-form" class="bg-white rounded-[2.5rem] p-8 md:p-10 border border-stone-100 shadow-sm space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="text-[10px] font-black uppercase tracking-widest text-stone-400 ml-2 mb-2 block">App Name</label>
-                    <input type="text" name="name" required class="input-coffee">
-                </div>
-                <div>
-                    <label class="text-[10px] font-black uppercase tracking-widest text-stone-400 ml-2 mb-2 block">Developer</label>
-                    <input type="text" name="dev" required class="input-coffee">
+                <input type="text" name="name" placeholder="App Name" required class="input-coffee">
+                <input type="text" name="dev" placeholder="Developer" required class="input-coffee">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <input type="text" name="version" placeholder="1.0.0" required class="input-coffee">
+                <div class="px-2">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-stone-400 mb-1 block">App Icon</label>
+                    <input type="file" name="icon" accept="image/*" required class="text-xs">
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="text-[10px] font-black uppercase tracking-widest text-stone-400 ml-2 mb-2 block">Version</label>
-                    <input type="text" name="version" required class="input-coffee" placeholder="1.0.0">
-                </div>
-                <div>
-                    <label class="text-[10px] font-black uppercase tracking-widest text-stone-400 ml-2 mb-2 block">App Icon (Image)</label>
-                    <input type="file" name="icon" accept="image/*" required class="text-xs mt-2">
-                </div>
+            <div class="bg-stone-50 border-2 border-dashed border-stone-100 p-6 rounded-2xl text-center">
+                <label class="text-[10px] font-black uppercase tracking-widest text-stone-400 mb-2 block">APK File</label>
+                <input type="file" name="apk" accept=".apk" required class="text-xs">
             </div>
 
-            <div>
-                <label class="text-[10px] font-black uppercase tracking-widest text-stone-400 ml-2 mb-2 block">APK File</label>
-                <div class="bg-stone-50 border-2 border-dashed border-stone-200 p-4 rounded-2xl text-center">
-                    <input type="file" name="apk" accept=".apk" required class="text-xs">
-                </div>
-            </div>
+            <textarea name="desc" placeholder="App Description..." required class="input-coffee h-32 resize-none"></textarea>
 
-            <div>
-                <label class="text-[10px] font-black uppercase tracking-widest text-stone-400 ml-2 mb-2 block">Description</label>
-                <textarea name="desc" required class="input-coffee h-32 resize-none"></textarea>
-            </div>
-
-            <button type="submit" id="submit-btn" class="btn-brew shadow-lg shadow-stone-200">
-                Brew and Publish ☕
+            <button type="submit" id="submit-btn" class="btn-brew shadow-lg shadow-stone-100">
+                Publish Brew ☕
             </button>
         </form>
     </div>
 
     <script>
+        const API_URL = 'https://converter.kesug.com/api.php';
         const form = document.getElementById('upload-form');
         const btn = document.getElementById('submit-btn');
         const status = document.getElementById('status-msg');
@@ -79,7 +66,7 @@
             const formData = new FormData(form);
             
             try {
-                const res = await fetch('api.php?action=upload', {
+                const res = await fetch(`${API_URL}?action=upload`, {
                     method: 'POST',
                     body: formData
                 });
@@ -93,10 +80,10 @@
                     setTimeout(() => status.classList.add('hidden'), 3000);
                 }
             } catch (err) {
-                alert("The machine clogged. Try again.");
+                alert("Upload failed. Make sure api.php has CORS enabled!");
             } finally {
                 btn.disabled = false;
-                btn.innerText = "Brew and Publish ☕";
+                btn.innerText = "Publish Brew ☕";
             }
         };
     </script>
