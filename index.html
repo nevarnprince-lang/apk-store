@@ -3,98 +3,795 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee APK Bar</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>VeriText AI - 100% Free AI Detector & Humanizer</title>
+    <meta name="description" content="Detect AI-generated content instantly and rewrite it to sound natural, human, and undetectable. 100% Free, no login required.">
+    <meta name="keywords" content="AI detector, AI humanizer, bypass AI detection, rewrite AI text, free AI tools">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Comfortaa:wght@500;700&display=swap');
-        :root { --latte: #f8f6f2; --cream: #fffdfc; --mocha: #a68b7c; --espresso: #5c4a3c; --accent: #d4a373; }
-        body { font-family: 'Quicksand', sans-serif; background-color: var(--latte); color: var(--espresso); margin: 0; }
-        .heading-font { font-family: 'Comfortaa', cursive; }
-        .coffee-card { background: var(--cream); border: 1px solid #eee8e2; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .coffee-card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: 0 15px 30px rgba(92, 74, 60, 0.08); }
-        .btn-brew { background-color: var(--mocha); color: white; border-radius: 99px; transition: 0.3s; box-shadow: 0 4px 10px rgba(166, 139, 124, 0.3); padding: 1rem 2.5rem; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; }
-        .btn-brew:hover { background-color: var(--espresso); transform: scale(1.05); }
+        /* CSS VARIABLES & RESET */
+        :root {
+            --primary: #6C63FF;
+            --secondary: #00D4FF;
+            --bg-dark: #0B0B1A;
+            --bg-darker: #05050A;
+            --text-light: #F0F0F5;
+            --text-muted: #A0A0B5;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --clay-shadow-light: rgba(255, 255, 255, 0.15);
+            --clay-shadow-dark: rgba(0, 0, 0, 0.4);
+            --success: #00E676;
+            --warning: #FFC400;
+            --danger: #FF3D00;
+            --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-darker));
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* BACKGROUND EFFECTS */
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: float 10s infinite alternate ease-in-out;
+        }
+        .orb-1 {
+            width: 400px; height: 400px;
+            background: var(--primary);
+            top: -100px; left: -100px;
+        }
+        .orb-2 {
+            width: 300px; height: 300px;
+            background: var(--secondary);
+            bottom: 20%; right: -50px;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(50px) translateX(30px); }
+        }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3 { font-weight: 700; }
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p { color: var(--text-muted); line-height: 1.6; }
+
+        /* LAYOUT & UTILS */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .text-center { text-align: center; }
+        .mt-4 { margin-top: 1rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .hidden { display: none !important; }
+
+        /* GLASSMORPHISM & CLAYMORPHISM COMPONENTS */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clay-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 
+                inset 2px 2px 6px var(--clay-shadow-light), 
+                inset -2px -2px 6px var(--clay-shadow-dark), 
+                0 4px 15px rgba(108, 99, 255, 0.4);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .clay-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                inset 2px 2px 6px var(--clay-shadow-light), 
+                inset -2px -2px 6px var(--clay-shadow-dark), 
+                0 8px 25px rgba(108, 99, 255, 0.6);
+        }
+        .clay-btn.secondary {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            box-shadow: none;
+        }
+        .clay-btn.secondary:hover {
+            background: rgba(255,255,255,0.1);
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .input-area {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 15px;
+            color: var(--text-light);
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 200px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .input-area:focus { border-color: var(--primary); }
+
+        .form-group { position: relative; margin-bottom: 20px; }
+        .char-counter {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* NAVBAR */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(11, 11, 26, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 0;
+        }
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: white; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: var(--text-light); text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--secondary); }
+        .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 150px 0 80px;
+            text-align: center;
+        }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 40px; }
+        .hero-btns { display: flex; justify-content: center; gap: 20px; }
+
+        /* SECTIONS */
+        section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 10px; }
+
+        /* DETECTOR & HUMANIZER PANELS */
+        .tool-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        .tool-panel { display: flex; flex-direction: column; height: 100%; }
+        
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .custom-file-upload {
+            display: inline-block;
+            cursor: pointer;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .custom-file-upload input[type="file"] { display: none; }
+        
+        select.tone-selector {
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: 1px solid var(--glass-border);
+            padding: 8px 12px;
+            border-radius: 8px;
+            outline: none;
+            cursor: pointer;
+        }
+        select.tone-selector option { background: var(--bg-dark); }
+
+        /* DETECTOR RESULTS */
+        .result-box {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+        .score-circle {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+            background: conic-gradient(var(--primary) 0%, transparent 0%);
+            position: relative;
+        }
+        .score-circle::before {
+            content: "";
+            position: absolute;
+            inset: 8px;
+            border-radius: 50%;
+            background: var(--bg-dark);
+        }
+        .score-value { position: relative; font-size: 2rem; font-weight: 700; z-index: 1; }
+        .score-label { position: relative; font-size: 0.8rem; color: var(--text-muted); z-index: 1; }
+        
+        mark.ai-highlight {
+            background-color: rgba(255, 61, 0, 0.3);
+            color: inherit;
+            padding: 2px 0;
+            border-radius: 3px;
+        }
+
+        /* FEATURES SECTION */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .feature-card { text-align: center; padding: 40px 20px; }
+        .feature-icon {
+            width: 60px; height: 60px;
+            background: rgba(108, 99, 255, 0.1);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        /* SHARE SECTION */
+        .share-box { text-align: center; padding: 50px; }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--glass-border);
+            padding: 30px 0;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 50px;
+        }
+
+        /* LOADER */
+        .loader {
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top: 3px solid var(--secondary);
+            border-radius: 50%;
+            width: 20px; height: 20px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: var(--bg-dark);
+                flex-direction: column;
+                padding: 20px;
+                border-bottom: 1px solid var(--glass-border);
+            }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .hero-btns { flex-direction: column; }
+        }
     </style>
 </head>
-<body class="pb-20">
+<body>
 
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-stone-200 px-6 py-4">
-        <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2 cursor-pointer" onclick="location.reload()">
-                <span class="text-3xl">☕</span>
-                <h1 class="heading-font font-bold text-xl tracking-tight text-stone-800">APK Bar</h1>
+    <!-- Background Effects -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo">Veri<span class="gradient-text">Text</span></a>
+            <div class="nav-links" id="navLinks">
+                <a href="#detector" onclick="toggleMenu()">AI Detector</a>
+                <a href="#humanizer" onclick="toggleMenu()">AI Humanizer</a>
+                <a href="#features" onclick="toggleMenu()">Features</a>
             </div>
-            <a href="admin.html" class="text-[10px] font-black uppercase tracking-[0.2em] text-stone-400 hover:text-stone-800 transition-colors">Staff Only</a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
         </div>
     </nav>
 
-    <main id="app-container" class="max-w-5xl mx-auto px-6 mt-12">
-        <div id="loader" class="text-center py-20 opacity-40 font-bold">Grinding beans... ☕</div>
-    </main>
+    <!-- Hero Section -->
+    <header class="hero" id="hero">
+        <div class="container">
+            <h1>100% Free <span class="gradient-text">AI Detector</span><br>& Humanizer</h1>
+            <p>Detect AI-generated content with pinpoint accuracy and seamlessly rewrite it to sound natural, human, and totally undetectable. No sign-up required.</p>
+            <div class="hero-btns">
+                <button class="clay-btn" onclick="scrollToSec('detector')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    Detect AI Text
+                </button>
+                <button class="clay-btn secondary" onclick="scrollToSec('humanizer')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                    Humanize Text
+                </button>
+            </div>
+        </div>
+    </header>
 
+    <!-- Detector Section -->
+    <section id="detector">
+        <div class="container">
+            <div class="section-header">
+                <h2>AI <span class="gradient-text">Detector</span></h2>
+                <p>Paste your text or upload a document to check for AI generation.</p>
+            </div>
+            
+            <div class="glass-card tool-panel">
+                <div class="toolbar">
+                    <label class="custom-file-upload">
+                        <input type="file" id="det-file" accept=".txt" onchange="handleFileUpload(event, 'det-input')"/>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                        Upload .txt
+                    </label>
+                    <button class="clay-btn secondary" style="padding: 6px 12px; font-size: 0.8rem;" onclick="clearText('det-input', 'det-result')">Clear</button>
+                </div>
+                
+                <div class="form-group">
+                    <textarea id="det-input" class="input-area" placeholder="Paste text here to analyze... (minimum 50 characters)" oninput="updateCounter('det-input', 'det-counter')"></textarea>
+                    <div class="char-counter" id="det-counter">0 chars</div>
+                </div>
+                
+                <button class="clay-btn" id="btn-analyze" onclick="analyzeText()">
+                    <span class="btn-text">Analyze Content</span>
+                    <div class="loader" id="loader-analyze"></div>
+                </button>
+
+                <!-- Detector Results -->
+                <div id="det-result" class="result-box hidden">
+                    <div class="score-circle" id="score-circle">
+                        <span class="score-value" id="score-val">0%</span>
+                        <span class="score-label">AI Probability</span>
+                    </div>
+                    <h3 class="text-center mb-4" id="score-title">Analysis Complete</h3>
+                    <p id="score-explanation" class="text-center mb-4" style="color: var(--text-light)"></p>
+                    
+                    <div style="margin-top: 20px; border-top: 1px solid var(--glass-border); padding-top: 20px;">
+                        <h4 style="margin-bottom: 10px; color: var(--secondary)">Detailed Analysis:</h4>
+                        <div id="highlighted-text" style="font-size: 0.95rem; line-height: 1.6; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px;">
+                            <!-- Highlighted text goes here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Humanizer Section -->
+    <section id="humanizer">
+        <div class="container">
+            <div class="section-header">
+                <h2>AI <span class="gradient-text">Humanizer</span></h2>
+                <p>Rewrite robotic AI text into natural, human-sounding content.</p>
+            </div>
+            
+            <div class="tool-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                
+                <!-- Input Panel -->
+                <div class="glass-card tool-panel">
+                    <div class="toolbar">
+                        <select id="tone-selector" class="tone-selector">
+                            <option value="Undetectable">Tone: Undetectable</option>
+                            <option value="Casual">Tone: Casual</option>
+                            <option value="Professional">Tone: Professional</option>
+                            <option value="Academic">Tone: Academic</option>
+                        </select>
+                        <label class="custom-file-upload">
+                            <input type="file" id="hum-file" accept=".txt" onchange="handleFileUpload(event, 'hum-input')"/>
+                            Upload .txt
+                        </label>
+                    </div>
+                    
+                    <div class="form-group" style="flex-grow: 1;">
+                        <textarea id="hum-input" class="input-area" style="height: calc(100% - 30px);" placeholder="Paste AI-generated text here to humanize..." oninput="updateCounter('hum-input', 'hum-counter')"></textarea>
+                        <div class="char-counter" id="hum-counter">0 chars</div>
+                    </div>
+                    
+                    <button class="clay-btn" id="btn-humanize" onclick="humanizeText()">
+                        <span class="btn-text">Humanize Text</span>
+                        <div class="loader" id="loader-humanize"></div>
+                    </button>
+                </div>
+
+                <!-- Output Panel -->
+                <div class="glass-card tool-panel">
+                    <div class="toolbar" style="justify-content: flex-end;">
+                        <span style="font-size: 0.9rem; color: var(--text-muted)">Output Result</span>
+                    </div>
+                    
+                    <div class="form-group" style="flex-grow: 1;">
+                        <textarea id="hum-output" class="input-area" style="height: calc(100% - 30px); background: rgba(0,0,0,0.4);" placeholder="Humanized text will appear here..." readonly></textarea>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="clay-btn secondary" style="flex: 1;" onclick="copyToClipboard('hum-output')">
+                            Copy Text
+                        </button>
+                        <button class="clay-btn secondary" style="flex: 1;" onclick="downloadTxt('hum-output', 'humanized_text.txt')">
+                            Download .txt
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose <span class="gradient-text">VeriText AI?</span></h2>
+                <p>The ultimate toolkit for content creators, students, and professionals.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Advanced Detection</h3>
+                    <p class="mt-4">Our model accurately identifies content generated by ChatGPT, Claude, Gemini, and other LLMs using linguistic pattern analysis.</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">✍️</div>
+                    <h3>Smart Humanization</h3>
+                    <p class="mt-4">Bypass detectors easily. We restructure sentences, adjust vocabulary, and add natural human nuances based on your selected tone.</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>100% Secure & Free</h3>
+                    <p class="mt-4">No login required. We don't store your texts. All processing is done instantly and delivered securely to your browser.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Share Section -->
+    <section id="share" style="padding-bottom: 40px;">
+        <div class="container">
+            <div class="glass-card share-box">
+                <h2>Love using <span class="gradient-text">VeriText?</span></h2>
+                <p class="mt-4 mb-4">Help us keep this tool 100% free by sharing it with your friends and colleagues!</p>
+                <button class="clay-btn" onclick="shareTool()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                    Share VeriText
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 VeriText AI. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Built with Vanilla JS & Gemini AI</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        const API_URL = 'https://converter.kesug.com/api.php';
-        const container = document.getElementById('app-container');
+        // API Configuration
+        const apiKey = ""; // API Key provided by execution environment
+        
+        // Navigation / UI Setup
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
 
-        async function fetchApps() {
-            try {
-                const res = await fetch(`${API_URL}?action=getApps`);
-                const apps = await res.json();
-                renderHome(apps);
-            } catch (err) {
-                container.innerHTML = `<div class="text-center py-20 opacity-50">Could not connect to the coffee machine.</div>`;
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateCounter(inputId, counterId) {
+            const text = document.getElementById(inputId).value;
+            document.getElementById(counterId).innerText = `${text.length} chars`;
+        }
+
+        function clearText(inputId, resultId) {
+            document.getElementById(inputId).value = '';
+            updateCounter(inputId, inputId.replace('input', 'counter'));
+            if(resultId && document.getElementById(resultId)) {
+                document.getElementById(resultId).classList.add('hidden');
             }
         }
 
-        function renderHome(apps) {
-            if (!apps || apps.length === 0) {
-                container.innerHTML = `<div class="text-center py-20 border-2 border-dashed border-stone-200 rounded-[3rem] text-stone-400 font-bold italic">Menu is empty.</div>`;
+        // File Upload Handler (.txt)
+        function handleFileUpload(event, targetId) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById(targetId).value = e.target.result;
+                updateCounter(targetId, targetId.replace('input', 'counter'));
+            };
+            reader.readAsText(file);
+            // Reset input so same file can be uploaded again if cleared
+            event.target.value = '';
+        }
+
+        // Copy to Clipboard
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).value;
+            if (!text) {
+                showMessage("Nothing to copy!");
+                return;
+            }
+            navigator.clipboard.writeText(text).then(() => {
+                showMessage("Copied to clipboard!");
+            }).catch(err => {
+                // Fallback
+                const el = document.getElementById(elementId);
+                el.select();
+                document.execCommand('copy');
+                showMessage("Copied to clipboard!");
+            });
+        }
+
+        // Download TXT
+        function downloadTxt(elementId, filename) {
+            const text = document.getElementById(elementId).value;
+            if (!text) {
+                showMessage("Nothing to download!");
+                return;
+            }
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Share Feature
+        function shareTool() {
+            const shareText = "This free AI tool detects & humanizes text instantly: " + window.location.href;
+            navigator.clipboard.writeText(shareText).then(() => {
+                showMessage("Share link and message copied to clipboard!");
+            }).catch(err => {
+                prompt("Copy this link to share:", shareText);
+            });
+        }
+
+        // Toast Message UI (Simple)
+        function showMessage(msg) {
+            const toast = document.createElement('div');
+            toast.textContent = msg;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.background = 'var(--primary)';
+            toast.style.color = 'white';
+            toast.style.padding = '10px 20px';
+            toast.style.borderRadius = '8px';
+            toast.style.zIndex = '1000';
+            toast.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
+            toast.style.transition = 'opacity 0.3s';
+            document.body.appendChild(toast);
+            
+            setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+            setTimeout(() => { document.body.removeChild(toast); }, 2800);
+        }
+
+        // --- GEMINI API INTEGRATION ---
+        
+        async function callGemini(prompt, isJson = false) {
+            if (!apiKey) {
+                throw new Error("API key is missing.");
+            }
+
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
+
+            // Enforce JSON schema if requested (critical for Detector)
+            if (isJson) {
+                payload.generationConfig = {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            score: { type: "INTEGER", description: "AI probability percentage from 0 to 100" },
+                            explanation: { type: "STRING", description: "Short explanation of why it feels AI or human" },
+                            highlightedText: { type: "STRING", description: "The original text, but wrap sentences that sound highly artificial in <mark class='ai-highlight'> tags." }
+                        },
+                        required: ["score", "explanation", "highlightedText"]
+                    }
+                };
+            }
+
+            // Exponential Backoff
+            let delay = 1000;
+            const retries = 5;
+
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    
+                    const data = await response.json();
+                    const textContent = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    if (!textContent) throw new Error("Empty response from API");
+                    
+                    return textContent;
+                } catch (error) {
+                    console.error(`Attempt ${i+1} failed:`, error);
+                    if (i === retries - 1) throw error; // Re-throw on last failure
+                    await new Promise(res => setTimeout(res, delay));
+                    delay *= 2;
+                }
+            }
+        }
+
+        // Button State Managers
+        function setLoadingState(btnId, isLoading) {
+            const btn = document.getElementById(btnId);
+            const textSpan = btn.querySelector('.btn-text');
+            const loader = btn.querySelector('.loader');
+            
+            if (isLoading) {
+                textSpan.style.display = 'none';
+                loader.style.display = 'block';
+                btn.disabled = true;
+                btn.style.opacity = '0.7';
+            } else {
+                textSpan.style.display = 'block';
+                loader.style.display = 'none';
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            }
+        }
+
+        // --- DETECTOR LOGIC ---
+        async function analyzeText() {
+            const text = document.getElementById('det-input').value.trim();
+            if (text.length < 50) {
+                showMessage("Please enter at least 50 characters to analyze.");
                 return;
             }
 
-            let html = `<h2 class="heading-font text-3xl font-bold mb-10 text-center md:text-left text-stone-800">The Menu</h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">`;
+            setLoadingState('btn-analyze', true);
+            document.getElementById('det-result').classList.add('hidden');
+
+            const prompt = `Analyze the following text to determine if it is AI-generated. Be highly critical. Look for typical LLM structures (lack of burstiness, highly predictable perplexity, generic transitions). Text to analyze: \n\n${text}`;
+
+            try {
+                const responseStr = await callGemini(prompt, true);
+                const result = JSON.parse(responseStr);
+                
+                // Update UI with results
+                updateDetectorUI(result.score, result.explanation, result.highlightedText);
+
+            } catch (error) {
+                console.error("API Call failed, using mock fallback", error);
+                // Fallback Mock Logic if API is unreachable
+                const mockScore = Math.floor(Math.random() * 40) + 60; // 60-100 random for mock
+                const mockExpl = "Note: API unreachable. This is a simulated result. The text exhibits repetitive sentence structures commonly associated with AI models.";
+                const mockHighlight = text.split('. ').map((s, i) => i % 2 === 0 ? `<mark class="ai-highlight">${s}</mark>` : s).join('. ');
+                updateDetectorUI(mockScore, mockExpl, mockHighlight);
+            } finally {
+                setLoadingState('btn-analyze', false);
+            }
+        }
+
+        function updateDetectorUI(score, explanation, highlightedText) {
+            const resBox = document.getElementById('det-result');
+            const scoreVal = document.getElementById('score-val');
+            const scoreCircle = document.getElementById('score-circle');
+            const scoreTitle = document.getElementById('score-title');
+            const expl = document.getElementById('score-explanation');
+            const highlights = document.getElementById('highlighted-text');
+
+            scoreVal.innerText = `${score}%`;
+            expl.innerText = explanation;
+            highlights.innerHTML = highlightedText || "No specific highlights available.";
+
+            // Color coding based on score
+            let color = 'var(--success)';
+            if (score > 40) color = 'var(--warning)';
+            if (score > 70) color = 'var(--danger)';
+
+            scoreCircle.style.background = `conic-gradient(${color} ${score}%, transparent 0%)`;
+            scoreVal.style.color = color;
+
+            if (score <= 40) scoreTitle.innerText = "Likely Human";
+            else if (score <= 70) scoreTitle.innerText = "Mixed Content";
+            else scoreTitle.innerText = "Likely AI-Generated";
+
+            resBox.classList.remove('hidden');
+        }
+
+        // --- HUMANIZER LOGIC ---
+        async function humanizeText() {
+            const text = document.getElementById('hum-input').value.trim();
+            if (text.length < 10) {
+                showMessage("Please enter some text to humanize.");
+                return;
+            }
+
+            const tone = document.getElementById('tone-selector').value;
+            setLoadingState('btn-humanize', true);
             
-            apps.reverse().forEach(app => {
-                html += `
-                    <div class="coffee-card rounded-[2.5rem] p-8 flex flex-col items-center text-center cursor-pointer group" onclick="showDetail(${app.id})">
-                        <img src="${app.icon}" class="w-24 h-24 rounded-[1.8rem] mb-6 shadow-sm object-cover bg-white">
-                        <h3 class="font-bold text-lg mb-1 truncate w-full">${app.name}</h3>
-                        <p class="text-[10px] font-black text-stone-300 uppercase tracking-widest mb-6">${app.dev}</p>
-                        <div class="mt-auto w-full py-2 bg-stone-50 rounded-xl text-[10px] font-black text-stone-400 group-hover:bg-stone-800 group-hover:text-white transition-all">VIEW BREW</div>
-                    </div>
-                `;
-            });
-            html += `</div>`;
-            container.innerHTML = html;
-            window.allApps = apps;
+            const prompt = `Rewrite the following text to sound completely natural, human, and undetectable by AI detectors. Avoid common AI buzzwords (e.g., "furthermore", "delve", "landscape", "testament"). Add natural human burstiness (mix of short and long sentences). Tone: ${tone}. Return ONLY the rewritten text, without any conversational filler or quotes around it.\n\nText:\n${text}`;
+
+            try {
+                const rewrittenText = await callGemini(prompt, false);
+                document.getElementById('hum-output').value = rewrittenText.trim();
+            } catch (error) {
+                console.error("API Call failed, using mock fallback", error);
+                document.getElementById('hum-output').value = "[API Error: Using Fallback Simulator]\n\n" + text.split(' ').sort(() => 0.5 - Math.random()).join(' ');
+                showMessage("API unreachable. Displaying fallback result.");
+            } finally {
+                setLoadingState('btn-humanize', false);
+            }
         }
 
-        function showDetail(id) {
-            const app = window.allApps.find(a => a.id == id);
-            container.innerHTML = `
-                <button onclick="fetchApps()" class="mb-8 font-black text-[10px] uppercase tracking-widest text-stone-400 hover:text-stone-800 transition-colors">← Back</button>
-                <div class="bg-white rounded-[3rem] p-8 md:p-12 flex flex-col md:flex-row gap-12 items-center md:items-start shadow-sm border border-stone-100">
-                    <img src="${app.icon}" class="w-48 h-48 rounded-[2rem] shadow-xl object-cover">
-                    <div class="flex-1 text-center md:text-left">
-                        <h1 class="heading-font text-4xl font-bold mb-2 text-stone-800">${app.name}</h1>
-                        <p class="text-stone-400 font-bold mb-8">By ${app.dev}</p>
-                        <div class="flex justify-center md:justify-start gap-3 mb-10">
-                            <span class="bg-stone-50 px-4 py-1.5 rounded-full text-[10px] font-black text-stone-400 border border-stone-100 uppercase tracking-widest">${app.version}</span>
-                            <span class="bg-stone-50 px-4 py-1.5 rounded-full text-[10px] font-black text-stone-400 border border-stone-100 uppercase tracking-widest">${app.size}</span>
-                        </div>
-                        <a href="${app.apk}" download class="btn-brew">Download APK</a>
-                    </div>
-                </div>
-                <div class="mt-12 px-6">
-                    <h3 class="heading-font text-xl font-bold mb-4 border-b pb-2 border-stone-100 text-stone-800">Description</h3>
-                    <p class="text-stone-500 leading-relaxed whitespace-pre-wrap font-medium">${app.desc}</p>
-                </div>
-            `;
-            window.scrollTo(0,0);
-        }
-
-        window.onload = fetchApps;
     </script>
 </body>
 </html>
