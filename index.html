@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VeriText AI - 100% Free AI Detector & Humanizer</title>
-    <meta name="description" content="Detect AI-generated content instantly and rewrite it to sound natural, human, and undetectable. 100% Free, no login required.">
-    <meta name="keywords" content="AI detector, AI humanizer, bypass AI detection, rewrite AI text, free AI tools">
+    <title>VeriText AI - Elite AI Detector, Humanizer & Paraphraser</title>
+    <meta name="description" content="Detect AI content, deeply humanize text to bypass detectors, and smartly paraphrase. 100% Free, no login required.">
     
     <style>
-        /* CSS VARIABLES & RESET */
+        /* --- CSS VARIABLES & RESET --- */
         :root {
             --primary: #6C63FF;
+            --primary-dark: #524be0;
             --secondary: #00D4FF;
             --bg-dark: #0B0B1A;
             --bg-darker: #05050A;
@@ -18,21 +18,15 @@
             --text-muted: #A0A0B5;
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
-            --clay-shadow-light: rgba(255, 255, 255, 0.15);
-            --clay-shadow-dark: rgba(0, 0, 0, 0.4);
+            --clay-shadow-light: rgba(255, 255, 255, 0.1);
+            --clay-shadow-dark: rgba(0, 0, 0, 0.5);
             --success: #00E676;
             --warning: #FFC400;
             --danger: #FF3D00;
-            --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --font-main: 'Inter', 'Segoe UI', system-ui, sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: var(--font-main);
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
         html { scroll-behavior: smooth; }
 
         body {
@@ -43,25 +37,22 @@
             position: relative;
         }
 
-        /* BACKGROUND EFFECTS */
+        /* --- BACKGROUND EFFECTS --- */
         .bg-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            z-index: -1;
-            opacity: 0.4;
-            animation: float 10s infinite alternate ease-in-out;
+            position: absolute; border-radius: 50%; filter: blur(120px); z-index: -1; opacity: 0.35;
+            animation: float 12s infinite alternate ease-in-out;
         }
-        .orb-1 { width: 400px; height: 400px; background: var(--primary); top: -100px; left: -100px; }
-        .orb-2 { width: 300px; height: 300px; background: var(--secondary); bottom: 20%; right: -50px; animation-delay: -5s; }
+        .orb-1 { width: 500px; height: 500px; background: var(--primary); top: -150px; left: -150px; }
+        .orb-2 { width: 400px; height: 400px; background: var(--secondary); bottom: 10%; right: -100px; animation-delay: -6s; }
+        .orb-3 { width: 300px; height: 300px; background: #FF007A; top: 40%; left: 30%; filter: blur(150px); opacity: 0.15; }
 
         @keyframes float {
             0% { transform: translateY(0) translateX(0); }
-            100% { transform: translateY(50px) translateX(30px); }
+            100% { transform: translateY(60px) translateX(40px); }
         }
 
-        /* TYPOGRAPHY */
-        h1, h2, h3 { font-weight: 700; }
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.5px; }
         .gradient-text {
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
@@ -69,14 +60,13 @@
         }
         p { color: var(--text-muted); line-height: 1.6; }
 
-        /* LAYOUT & UTILS */
+        /* --- LAYOUT & UTILS --- */
         .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
-        .mt-4 { margin-top: 1rem; }
-        .mb-4 { margin-bottom: 1rem; }
+        .mt-4 { margin-top: 1rem; } .mb-4 { margin-bottom: 1rem; }
         .hidden { display: none !important; }
 
-        /* GLASSMORPHISM & CLAYMORPHISM COMPONENTS */
+        /* --- GLASSMORPHISM & CLAYMORPHISM COMPONENTS --- */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
@@ -90,219 +80,134 @@
         }
 
         .clay-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 
-                inset 2px 2px 6px var(--clay-shadow-light), 
-                inset -2px -2px 6px var(--clay-shadow-dark), 
-                0 4px 15px rgba(108, 99, 255, 0.4);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            background: var(--primary); color: white; border: none;
+            padding: 12px 24px; font-size: 1rem; font-weight: 600;
+            border-radius: 12px; cursor: pointer; transition: all 0.3s ease;
+            box-shadow: inset 2px 2px 6px var(--clay-shadow-light), inset -2px -2px 6px var(--clay-shadow-dark), 0 4px 15px rgba(108, 99, 255, 0.4);
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
         }
         .clay-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 
-                inset 2px 2px 6px var(--clay-shadow-light), 
-                inset -2px -2px 6px var(--clay-shadow-dark), 
-                0 8px 25px rgba(108, 99, 255, 0.6);
+            transform: translateY(-2px); background: var(--primary-dark);
+            box-shadow: inset 2px 2px 6px var(--clay-shadow-light), inset -2px -2px 6px var(--clay-shadow-dark), 0 8px 25px rgba(108, 99, 255, 0.6);
         }
-        .clay-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-        .clay-btn.secondary {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            box-shadow: none;
-        }
-        .clay-btn.secondary:hover:not(:disabled) {
-            background: rgba(255,255,255,0.1);
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
-        }
+        .clay-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+        
+        .clay-btn.secondary { background: var(--glass-bg); border: 1px solid var(--glass-border); box-shadow: none; }
+        .clay-btn.secondary:hover:not(:disabled) { background: rgba(255,255,255,0.08); box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2); }
 
         .input-area {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 15px;
-            color: var(--text-light);
-            font-size: 1rem;
-            resize: vertical;
-            min-height: 200px;
-            outline: none;
-            transition: border-color 0.3s ease;
+            width: 100%; background: rgba(0, 0, 0, 0.25); border: 1px solid var(--glass-border);
+            border-radius: 12px; padding: 18px; color: var(--text-light); font-size: 1rem;
+            resize: vertical; min-height: 220px; outline: none; transition: all 0.3s ease;
+            line-height: 1.6;
         }
-        .input-area:focus { border-color: var(--primary); }
+        .input-area:focus { border-color: var(--secondary); box-shadow: 0 0 10px rgba(0, 212, 255, 0.1); }
+        .input-area::placeholder { color: rgba(160, 160, 181, 0.5); }
 
         .form-group { position: relative; margin-bottom: 20px; }
-        .char-counter {
-            position: absolute;
-            bottom: 10px;
-            right: 15px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
+        .char-counter { position: absolute; bottom: 12px; right: 18px; font-size: 0.8rem; color: var(--text-muted); background: rgba(0,0,0,0.5); padding: 2px 8px; border-radius: 4px; }
 
-        /* NAVBAR */
+        /* --- NAVBAR --- */
         nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            background: rgba(11, 11, 26, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 15px 0;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(11, 11, 26, 0.85); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border); padding: 15px 0;
         }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: white; }
-        .nav-links { display: flex; gap: 20px; }
-        .nav-links a { color: var(--text-light); text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .logo { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: white; letter-spacing: -1px; }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { color: var(--text-light); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
         .nav-links a:hover { color: var(--secondary); }
         .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
 
-        /* HERO SECTION */
-        .hero { padding: 150px 0 80px; text-align: center; }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; }
-        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 40px; }
-        .hero-btns { display: flex; justify-content: center; gap: 20px; }
+        /* --- HERO SECTION --- */
+        .hero { padding: 160px 0 100px; text-align: center; }
+        .hero h1 { font-size: 4rem; margin-bottom: 20px; line-height: 1.1; }
+        .hero p { font-size: 1.2rem; max-width: 650px; margin: 0 auto 40px; color: #b5b5c5; }
+        .hero-btns { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 
-        /* SECTIONS */
-        section { padding: 80px 0; }
+        /* --- SECTIONS --- */
+        section { padding: 90px 0; border-top: 1px solid rgba(255,255,255,0.02); }
         .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-size: 2.5rem; margin-bottom: 10px; }
+        .section-header h2 { font-size: 2.8rem; margin-bottom: 15px; }
+        .section-header p { font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
-        /* DETECTOR & HUMANIZER PANELS */
+        /* --- TOOL GRIDS & CONTROLS --- */
         .tool-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
+        .tool-grid.split { grid-template-columns: 1fr 1fr; }
         .tool-panel { display: flex; flex-direction: column; height: 100%; }
         
-        .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
-        .custom-file-upload { cursor: pointer; color: var(--secondary); font-size: 0.9rem; display: flex; align-items: center; gap: 5px; }
+        .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; background: rgba(0,0,0,0.2); padding: 10px 15px; border-radius: 12px; border: 1px solid var(--glass-border); }
+        .controls-group { display: flex; gap: 10px; flex-wrap: wrap; flex: 1; }
+        
+        select.custom-select {
+            background: rgba(0, 0, 0, 0.4); color: white; border: 1px solid var(--glass-border);
+            padding: 8px 12px; border-radius: 8px; outline: none; cursor: pointer; font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+        select.custom-select:hover { border-color: var(--primary); }
+        select.custom-select option { background: var(--bg-darker); }
+
+        .custom-file-upload { cursor: pointer; color: var(--secondary); font-size: 0.9rem; display: flex; align-items: center; gap: 5px; padding: 8px; border-radius: 8px; transition: 0.2s; }
+        .custom-file-upload:hover { background: rgba(0, 212, 255, 0.1); }
         .custom-file-upload input[type="file"] { display: none; }
-        
-        select.tone-selector {
-            background: rgba(0, 0, 0, 0.3);
-            color: white;
-            border: 1px solid var(--glass-border);
-            padding: 8px 12px;
-            border-radius: 8px;
-            outline: none;
-            cursor: pointer;
-        }
-        select.tone-selector option { background: var(--bg-dark); }
 
-        /* DETECTOR RESULTS */
-        .result-box {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 12px;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
-        }
+        /* --- DETECTOR RESULTS --- */
+        .result-box { margin-top: 25px; padding: 25px; border-radius: 16px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--glass-border); transition: all 0.3s ease; }
+        .score-container { display: flex; align-items: center; justify-content: center; gap: 40px; margin-bottom: 30px; flex-wrap: wrap; }
+        
         .score-circle {
-            width: 120px; height: 120px;
-            border-radius: 50%;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            margin: 0 auto 20px;
-            background: conic-gradient(var(--primary) 0%, transparent 0%);
-            position: relative;
+            width: 140px; height: 140px; border-radius: 50%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: conic-gradient(var(--primary) 0%, transparent 0%); position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
-        .score-circle::before { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: var(--bg-dark); }
-        .score-value { position: relative; font-size: 2rem; font-weight: 700; z-index: 1; }
-        .score-label { position: relative; font-size: 0.8rem; color: var(--text-muted); z-index: 1; }
+        .score-circle::before { content: ""; position: absolute; inset: 10px; border-radius: 50%; background: var(--bg-dark); }
+        .score-value { position: relative; font-size: 2.5rem; font-weight: 800; z-index: 1; }
+        .score-label { position: relative; font-size: 0.85rem; color: var(--text-muted); z-index: 1; text-transform: uppercase; letter-spacing: 1px; }
         
-        mark.ai-highlight { background-color: rgba(255, 61, 0, 0.3); color: inherit; padding: 2px 0; border-radius: 3px; }
+        .detailed-stats { display: flex; flex-direction: column; gap: 15px; min-width: 200px; }
+        .stat-item { background: rgba(255,255,255,0.05); padding: 12px 15px; border-radius: 8px; border: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; }
+        .stat-label { font-size: 0.85rem; color: var(--text-muted); }
+        .stat-val { font-weight: 700; color: white; }
 
-        /* FEATURES SECTION */
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .feature-card { text-align: center; padding: 40px 20px; }
-        .feature-icon {
-            width: 60px; height: 60px;
-            background: rgba(108, 99, 255, 0.1);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 1.5rem;
-            color: var(--secondary);
-        }
+        mark.ai-highlight { background-color: rgba(255, 61, 0, 0.25); color: #ffcccc; padding: 2px 4px; border-radius: 4px; border-bottom: 1px dashed rgba(255, 61, 0, 0.6); }
 
-        /* SHARE SECTION */
-        .share-box { text-align: center; padding: 50px; }
+        /* --- FEATURES & SHARE --- */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .feature-card { text-align: center; padding: 40px 25px; transition: transform 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); }
+        .feature-icon { width: 65px; height: 65px; background: linear-gradient(135deg, rgba(108, 99, 255, 0.2), rgba(0, 212, 255, 0.2)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; border: 1px solid var(--glass-border); }
+        .share-box { text-align: center; padding: 60px 30px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(108, 99, 255, 0.05)); }
 
-        /* FOOTER */
-        footer { border-top: 1px solid var(--glass-border); padding: 30px 0; text-align: center; color: var(--text-muted); margin-top: 50px; }
-
-        /* LOADER */
-        .loader {
-            border: 3px solid rgba(255,255,255,0.1);
-            border-top: 3px solid var(--secondary);
-            border-radius: 50%;
-            width: 20px; height: 20px;
-            animation: spin 1s linear infinite;
-            display: none;
-        }
+        /* --- LOADER & TOAST --- */
+        .loader { border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid white; border-radius: 50%; width: 20px; height: 20px; animation: spin 0.8s linear infinite; display: none; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* TOAST MESSAGE */
-        #toast-container {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            pointer-events: none;
-        }
-        .toast {
-            background: var(--primary);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-            max-width: 90vw;
-            text-align: center;
-        }
-        .toast.error { background: var(--danger); }
+        #toast-container { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+        .toast { background: var(--bg-dark); border: 1px solid var(--glass-border); color: white; padding: 14px 28px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); opacity: 1; transform: translateY(0); pointer-events: auto; text-align: center; display: flex; align-items: center; gap: 10px; font-weight: 500; }
+        .toast::before { content: '✨'; }
+        .toast.error::before { content: '⚠️'; }
+        .toast.error { border-color: var(--danger); }
 
-        /* RESPONSIVE */
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) { .tool-grid.split { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%; left: 0; right: 0;
-                background: var(--bg-dark);
-                flex-direction: column;
-                padding: 20px;
-                border-bottom: 1px solid var(--glass-border);
-            }
+            .hero h1 { font-size: 2.8rem; }
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(11, 11, 26, 0.95); backdrop-filter: blur(20px); flex-direction: column; padding: 20px; border-bottom: 1px solid var(--glass-border); text-align: center; }
             .nav-links.active { display: flex; }
             .mobile-menu-btn { display: block; }
-            .hero-btns { flex-direction: column; }
+            .score-container { flex-direction: column; gap: 20px; }
+            .detailed-stats { width: 100%; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Dynamic Background -->
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
     <div id="toast-container"></div>
 
     <!-- Navigation -->
@@ -310,8 +215,9 @@
         <div class="container nav-content">
             <a href="#" class="logo">Veri<span class="gradient-text">Text</span></a>
             <div class="nav-links" id="navLinks">
-                <a href="#detector" onclick="toggleMenu()">AI Detector</a>
-                <a href="#humanizer" onclick="toggleMenu()">AI Humanizer</a>
+                <a href="#detector" onclick="toggleMenu()">Detector</a>
+                <a href="#humanizer" onclick="toggleMenu()">Humanizer</a>
+                <a href="#paraphraser" onclick="toggleMenu()">Paraphraser</a>
                 <a href="#features" onclick="toggleMenu()">Features</a>
             </div>
             <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
@@ -321,152 +227,254 @@
     <!-- Hero Section -->
     <header class="hero" id="hero">
         <div class="container">
-            <h1>100% Free <span class="gradient-text">AI Detector</span><br>& Humanizer</h1>
-            <p>Detect AI-generated content with pinpoint accuracy and seamlessly rewrite it to sound natural, human, and totally undetectable. No sign-up required.</p>
+            <h1>Elite <span class="gradient-text">AI Detector</span><br>& Content Suite</h1>
+            <p>Detect AI with pinpoint accuracy, aggressively bypass AI detectors with our supercharged humanizer, or creatively rewrite your content. 100% Free.</p>
             <div class="hero-btns">
                 <button class="clay-btn" onclick="scrollToSec('detector')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    Detect AI Text
+                    Detect AI
                 </button>
                 <button class="clay-btn secondary" onclick="scrollToSec('humanizer')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                     Humanize Text
                 </button>
+                <button class="clay-btn secondary" onclick="scrollToSec('paraphraser')" style="border-color: rgba(108, 99, 255, 0.5);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                    Paraphrase
+                </button>
             </div>
         </div>
     </header>
 
-    <!-- Detector Section -->
+    <!-- DETECTOR SECTION -->
     <section id="detector">
         <div class="container">
             <div class="section-header">
-                <h2>AI <span class="gradient-text">Detector</span></h2>
-                <p>Paste your text or upload a document to check for AI generation.</p>
+                <h2>Deep AI <span class="gradient-text">Detector</span></h2>
+                <p>Advanced linguistic analysis checks for perplexity, burstiness, and hidden AI n-gram patterns.</p>
             </div>
             
-            <div class="glass-card tool-panel">
+            <div class="glass-card tool-panel" style="max-width: 900px; margin: 0 auto;">
                 <div class="toolbar">
-                    <label class="custom-file-upload">
-                        <input type="file" id="det-file" accept=".txt" onchange="handleFileUpload(event, 'det-input')"/>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                        Upload .txt
-                    </label>
-                    <button class="clay-btn secondary" style="padding: 6px 12px; font-size: 0.8rem;" onclick="clearText('det-input', 'det-result')">Clear</button>
+                    <div class="controls-group">
+                        <label class="custom-file-upload">
+                            <input type="file" id="det-file" accept=".txt" onchange="handleFileUpload(event, 'det-input')"/>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                            Upload .txt
+                        </label>
+                    </div>
+                    <button class="clay-btn secondary" style="padding: 6px 14px; font-size: 0.85rem;" onclick="clearText('det-input', 'det-result')">Clear</button>
                 </div>
                 
                 <div class="form-group">
-                    <textarea id="det-input" class="input-area" placeholder="Paste text here to analyze... (minimum 50 characters)" oninput="updateCounter('det-input', 'det-counter')"></textarea>
+                    <textarea id="det-input" class="input-area" placeholder="Paste your essay, article, or document here to analyze... (Minimum 50 characters for accurate results)" oninput="updateCounter('det-input', 'det-counter')"></textarea>
                     <div class="char-counter" id="det-counter">0 chars</div>
                 </div>
                 
-                <button class="clay-btn" id="btn-analyze" onclick="analyzeText()">
-                    <span class="btn-text">Analyze Content</span>
+                <button class="clay-btn" id="btn-analyze" onclick="analyzeText()" style="align-self: flex-end;">
+                    <span class="btn-text">Run Deep Analysis</span>
                     <div class="loader" id="loader-analyze"></div>
                 </button>
 
-                <!-- Detector Results -->
+                <!-- Detector Results Area -->
                 <div id="det-result" class="result-box hidden">
-                    <div class="score-circle" id="score-circle">
-                        <span class="score-value" id="score-val">0%</span>
-                        <span class="score-label">AI Probability</span>
-                    </div>
-                    <h3 class="text-center mb-4" id="score-title">Analysis Complete</h3>
-                    <p id="score-explanation" class="text-center mb-4" style="color: var(--text-light)"></p>
-                    
-                    <div style="margin-top: 20px; border-top: 1px solid var(--glass-border); padding-top: 20px;">
-                        <h4 style="margin-bottom: 10px; color: var(--secondary)">Detailed Analysis:</h4>
-                        <div id="highlighted-text" style="font-size: 0.95rem; line-height: 1.6; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px;">
-                            <!-- Highlighted text goes here -->
+                    <div class="score-container">
+                        <div class="score-circle" id="score-circle">
+                            <span class="score-value" id="score-val">0%</span>
+                            <span class="score-label">AI Content</span>
                         </div>
+                        <div class="detailed-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Verdict</span>
+                                <span class="stat-val" id="score-title" style="color: var(--secondary)">Analyzing...</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Burstiness (Variance)</span>
+                                <span class="stat-val" id="stat-burst">--</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Perplexity (Unpredictability)</span>
+                                <span class="stat-val" id="stat-perp">--</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p id="score-explanation" class="text-center mb-4" style="color: var(--text-light); font-size: 1.05rem;"></p>
+                    
+                    <div style="margin-top: 25px; border-top: 1px solid var(--glass-border); padding-top: 20px;">
+                        <h4 style="margin-bottom: 15px; color: var(--secondary); display: flex; align-items: center; gap: 8px;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h4l3-9 5 18 3-9h5"></path></svg>
+                            Highlighted Analysis
+                        </h4>
+                        <div id="highlighted-text" style="font-size: 0.95rem; line-height: 1.8; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                            <!-- Highlighted text -->
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">* <mark class="ai-highlight" style="padding: 0 4px;">Highlighted text</mark> indicates highly predictable sentence structures common in Large Language Models.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Humanizer Section -->
+    <!-- HUMANIZER SECTION -->
     <section id="humanizer">
         <div class="container">
             <div class="section-header">
-                <h2>AI <span class="gradient-text">Humanizer</span></h2>
-                <p>Rewrite robotic AI text into natural, human-sounding content.</p>
+                <h2>Supercharged <span class="gradient-text">Humanizer</span></h2>
+                <p>Force maximum burstiness and perplexity to bypass Turnitin, GPTZero, and Originality.ai.</p>
             </div>
             
-            <div class="tool-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-                
+            <div class="tool-grid split">
                 <!-- Input Panel -->
                 <div class="glass-card tool-panel">
                     <div class="toolbar">
-                        <select id="tone-selector" class="tone-selector">
-                            <option value="Undetectable">Tone: Undetectable</option>
-                            <option value="Casual">Tone: Casual</option>
-                            <option value="Professional">Tone: Professional</option>
-                            <option value="Academic">Tone: Academic</option>
-                        </select>
-                        <label class="custom-file-upload">
-                            <input type="file" id="hum-file" accept=".txt" onchange="handleFileUpload(event, 'hum-input')"/>
-                            Upload .txt
-                        </label>
+                        <div class="controls-group">
+                            <select id="hum-aggressiveness" class="custom-select" title="Bypass Strength">
+                                <option value="Standard">Strength: Standard</option>
+                                <option value="Aggressive" selected>Strength: Aggressive Bypass</option>
+                            </select>
+                            <select id="hum-readability" class="custom-select" title="Readability Level">
+                                <option value="High School">Level: High School</option>
+                                <option value="University" selected>Level: University</option>
+                                <option value="Expert/Academic">Level: Expert/Academic</option>
+                            </select>
+                        </div>
                     </div>
                     
                     <div class="form-group" style="flex-grow: 1;">
-                        <textarea id="hum-input" class="input-area" style="height: calc(100% - 30px);" placeholder="Paste AI-generated text here to humanize..." oninput="updateCounter('hum-input', 'hum-counter')"></textarea>
+                        <textarea id="hum-input" class="input-area" style="height: calc(100% - 20px);" placeholder="Paste flagged AI text here... Our engine will inject human imperfections, varied sentence lengths, and natural phrasing." oninput="updateCounter('hum-input', 'hum-counter')"></textarea>
                         <div class="char-counter" id="hum-counter">0 chars</div>
                     </div>
                     
-                    <button class="clay-btn" id="btn-humanize" onclick="humanizeText()">
-                        <span class="btn-text">Humanize Text</span>
+                    <button class="clay-btn" id="btn-humanize" onclick="humanizeText()" style="width: 100%;">
+                        <span class="btn-text">Humanize & Bypass</span>
                         <div class="loader" id="loader-humanize"></div>
                     </button>
                 </div>
 
                 <!-- Output Panel -->
                 <div class="glass-card tool-panel">
-                    <div class="toolbar" style="justify-content: flex-end;">
-                        <span style="font-size: 0.9rem; color: var(--text-muted)">Output Result</span>
+                    <div class="toolbar" style="justify-content: space-between; background: rgba(108, 99, 255, 0.1); border-color: rgba(108, 99, 255, 0.2);">
+                        <span style="font-size: 0.95rem; font-weight: 600; color: white;">Humanized Output</span>
+                        <span style="font-size: 0.8rem; color: var(--success);">✓ Bypass Ready</span>
                     </div>
                     
                     <div class="form-group" style="flex-grow: 1;">
-                        <textarea id="hum-output" class="input-area" style="height: calc(100% - 30px); background: rgba(0,0,0,0.4);" placeholder="Humanized text will appear here..." readonly></textarea>
+                        <textarea id="hum-output" class="input-area" style="height: calc(100% - 20px); background: rgba(0,0,0,0.5);" placeholder="Your undetectable, humanized text will appear here..." readonly></textarea>
                     </div>
                     
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                        <button class="clay-btn secondary" style="flex: 1;" onclick="copyToClipboard('hum-output')">Copy Text</button>
-                        <button class="clay-btn secondary" style="flex: 1;" onclick="downloadTxt('hum-output', 'humanized_text.txt')">Download .txt</button>
+                    <div style="display: flex; gap: 15px;">
+                        <button class="clay-btn secondary" style="flex: 1;" onclick="copyToClipboard('hum-output')">Copy</button>
+                        <button class="clay-btn secondary" style="flex: 1;" onclick="downloadTxt('hum-output', 'humanized_text.txt')">Save .txt</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features & Footer (Skipped visually for brevity but intact in code) -->
-    <section id="features">
+    <!-- PARAPHRASER SECTION -->
+    <section id="paraphraser" style="background: rgba(255,255,255,0.01);">
         <div class="container">
             <div class="section-header">
-                <h2>Why Choose <span class="gradient-text">VeriText AI?</span></h2>
-                <p>The ultimate toolkit for content creators, students, and professionals.</p>
+                <h2>Smart <span class="gradient-text">Paraphraser</span></h2>
+                <p>Instantly rewrite content to improve fluency, shorten, or expand your ideas.</p>
             </div>
-            <div class="features-grid">
-                <div class="glass-card feature-card"><div class="feature-icon">🛡️</div><h3>Advanced Detection</h3><p class="mt-4">Accurately identifies content generated by LLMs.</p></div>
-                <div class="glass-card feature-card"><div class="feature-icon">✍️</div><h3>Smart Humanization</h3><p class="mt-4">Restructure sentences and bypass detectors.</p></div>
-                <div class="glass-card feature-card"><div class="feature-icon">🔒</div><h3>100% Secure & Free</h3><p class="mt-4">No login required. We don't store your texts.</p></div>
+            
+            <div class="tool-grid split">
+                <!-- Input Panel -->
+                <div class="glass-card tool-panel">
+                    <div class="toolbar">
+                        <div class="controls-group">
+                            <select id="para-mode" class="custom-select" style="width: 100%;">
+                                <option value="Standard Fluency">Mode: Standard Fluency (Fix phrasing)</option>
+                                <option value="Creative">Mode: Creative (More engaging)</option>
+                                <option value="Shorten">Mode: Shorten (Concise summary)</option>
+                                <option value="Expand">Mode: Expand (Add details & length)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="flex-grow: 1;">
+                        <textarea id="para-input" class="input-area" style="height: calc(100% - 20px);" placeholder="Enter text to paraphrase or summarize..." oninput="updateCounter('para-input', 'para-counter')"></textarea>
+                        <div class="char-counter" id="para-counter">0 chars</div>
+                    </div>
+                    
+                    <button class="clay-btn" id="btn-paraphrase" onclick="paraphraseText()" style="width: 100%; background: var(--secondary); box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);">
+                        <span class="btn-text">Paraphrase Text</span>
+                        <div class="loader" id="loader-paraphrase"></div>
+                    </button>
+                </div>
+
+                <!-- Output Panel -->
+                <div class="glass-card tool-panel">
+                    <div class="toolbar" style="justify-content: flex-end; background: rgba(0, 212, 255, 0.1); border-color: rgba(0, 212, 255, 0.2);">
+                        <span style="font-size: 0.95rem; font-weight: 600; color: white;">Rewritten Output</span>
+                    </div>
+                    
+                    <div class="form-group" style="flex-grow: 1;">
+                        <textarea id="para-output" class="input-area" style="height: calc(100% - 20px); background: rgba(0,0,0,0.5);" placeholder="Paraphrased result will appear here..." readonly></textarea>
+                    </div>
+                    
+                    <div style="display: flex; gap: 15px;">
+                        <button class="clay-btn secondary" style="flex: 1;" onclick="copyToClipboard('para-output')">Copy</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer>
+    <!-- FEATURES & SHARE SECTION -->
+    <section id="features">
         <div class="container">
-            <p>&copy; 2026 VeriText AI. All rights reserved.</p>
-            <p style="font-size: 0.8rem; margin-top: 10px;">Built with Vanilla JS & Gemini AI</p>
+            <div class="section-header">
+                <h2>Why Choose <span class="gradient-text">VeriText AI?</span></h2>
+            </div>
+            <div class="features-grid">
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Deep Pattern Detection</h3>
+                    <p class="mt-4">We don't just guess. We analyze perplexity (vocabulary predictability) and burstiness (sentence variance) to spot LLM structures.</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Aggressive Bypass</h3>
+                    <p class="mt-4">Our humanizer actively removes known "AI buzzwords" and injects natural human structural variance to beat strict academic detectors.</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Powered by Gemini 2.5</h3>
+                    <p class="mt-4">Utilizing the blazing fast and highly intelligent Google Gemini 2.5 Flash model for instant, high-quality processing.</p>
+                </div>
+            </div>
+            
+            <div class="glass-card share-box" style="margin-top: 60px;">
+                <h2>Support <span class="gradient-text">Free AI Tools</span></h2>
+                <p class="mt-4 mb-4">VeriText is built to be 100% free and secure. Help us keep it that way by sharing!</p>
+                <button class="clay-btn" onclick="shareTool()">Share VeriText with Friends</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container" style="border-top: 1px solid var(--glass-border); padding: 40px 0; text-align: center; color: var(--text-muted);">
+            <p>&copy; 2026 VeriText AI Suite. All rights reserved.</p>
+            <p style="font-size: 0.85rem; margin-top: 10px;">Powered by Gemini 2.5 Flash API & Vanilla JavaScript</p>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- --- JAVASCRIPT LOGIC --- -->
     <script>
-        // --- IMPORTANT: Set your API Key Here ---
-        const apiKey = "AIzaSyBeq7M6xRUR1AGBKZEtLu3cdqWsUsSmdQ0"; // API Key provided by execution environment
-        
-        // Navigation / UI Setup
+        // ==========================================
+        // CONFIGURATION
+        // ==========================================
+        const apiKey = "AIzaSyBeq7M6xRUR1AGBKZEtLu3cdqWsUsSmdQ0"; // API Key injected by environment
+        // Updated to gemini-2.5-flash per user request
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+
+        // ==========================================
+        // UI & UTILITIES
+        // ==========================================
         function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
         function scrollToSec(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
         
@@ -514,6 +522,12 @@
             URL.revokeObjectURL(url);
         }
 
+        function shareTool() {
+            const shareText = "Bypass AI detectors and rewrite text for free with VeriText: " + window.location.href;
+            navigator.clipboard.writeText(shareText).then(() => showMessage("Link copied!"))
+            .catch(() => prompt("Copy this link:", shareText));
+        }
+
         function showMessage(msg, isError = false) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -521,25 +535,47 @@
             toast.textContent = msg;
             container.appendChild(toast);
             
-            setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateY(10px)'; }, 4000);
-            setTimeout(() => { if(container.contains(toast)) container.removeChild(toast); }, 4300);
+            setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateY(20px)'; }, 3500);
+            setTimeout(() => { if(container.contains(toast)) container.removeChild(toast); }, 3800);
         }
 
-        // --- ENHANCED GEMINI API INTEGRATION ---
+        function setLoadingState(btnId, isLoading) {
+            const btn = document.getElementById(btnId);
+            const textSpan = btn.querySelector('.btn-text');
+            const loader = btn.querySelector('.loader');
+            if (isLoading) {
+                textSpan.style.display = 'none'; loader.style.display = 'block'; btn.disabled = true;
+            } else {
+                textSpan.style.display = 'block'; loader.style.display = 'none'; btn.disabled = false;
+            }
+        }
+
+        // ==========================================
+        // CORE API FETCHER
+        // ==========================================
         async function callGemini(prompt, isJson = false) {
             if (!apiKey || apiKey.trim() === "") {
-                throw new Error("API key is missing! Please set 'const apiKey' in the code.");
+                throw new Error("API key is missing! Please configure the environment API Key.");
             }
 
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-            
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }]
-            };
+            const payload = { contents: [{ parts: [{ text: prompt }] }] };
 
-            // Force JSON parsing strictly via prompt instructions & MIME config
             if (isJson) {
-                payload.generationConfig = { responseMimeType: "application/json" };
+                payload.generationConfig = { 
+                    responseMimeType: "application/json",
+                    // Enforcing strict schema for the Detector
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            score: { type: "INTEGER", description: "0 to 100 AI probability" },
+                            explanation: { type: "STRING" },
+                            highlightedText: { type: "STRING", description: "Original text with predictable sentences in <mark class='ai-highlight'> tags" },
+                            burstiness: { type: "STRING", description: "Low, Medium, or High" },
+                            perplexity: { type: "STRING", description: "Low, Medium, or High" }
+                        },
+                        required: ["score", "explanation", "highlightedText", "burstiness", "perplexity"]
+                    }
+                };
             }
 
             let delay = 1000;
@@ -547,140 +583,168 @@
 
             for (let i = 0; i < retries; i++) {
                 try {
-                    const response = await fetch(url, {
+                    const response = await fetch(API_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
                     
-                    // Detailed Error Extraction
                     if (!response.ok) {
-                        const errorData = await response.json().catch(() => ({}));
-                        const errMsg = errorData.error?.message || response.statusText || "Unknown Error";
-                        throw new Error(`Google API Error (${response.status}): ${errMsg}`);
+                        const err = await response.json().catch(()=>({}));
+                        throw new Error(err.error?.message || `HTTP ${response.status}`);
                     }
                     
                     const data = await response.json();
                     let textContent = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (!textContent) throw new Error("Empty response from AI.");
                     
-                    if (!textContent) throw new Error("Received an empty response from the AI model.");
-                    
-                    // JSON formatting cleaner (removes markdown backticks if AI hallucinates them)
                     if (isJson) {
                         textContent = textContent.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
                     }
-                    
                     return textContent;
                 } catch (error) {
-                    console.error(`Attempt ${i+1} failed:`, error);
-                    if (i === retries - 1) throw error; // Re-throw on last attempt
-                    await new Promise(res => setTimeout(res, delay));
+                    console.error(`API attempt ${i+1} failed:`, error);
+                    if (i === retries - 1) throw error;
+                    await new Promise(r => setTimeout(r, delay));
                     delay *= 2;
                 }
             }
         }
 
-        function setLoadingState(btnId, isLoading) {
-            const btn = document.getElementById(btnId);
-            const textSpan = btn.querySelector('.btn-text');
-            const loader = btn.querySelector('.loader');
-            
-            if (isLoading) {
-                textSpan.style.display = 'none';
-                loader.style.display = 'block';
-                btn.disabled = true;
-            } else {
-                textSpan.style.display = 'block';
-                loader.style.display = 'none';
-                btn.disabled = false;
-            }
-        }
-
-        // --- DETECTOR LOGIC ---
+        // ==========================================
+        // TOOL 1: DETECTOR
+        // ==========================================
         async function analyzeText() {
             const text = document.getElementById('det-input').value.trim();
-            if (text.length < 50) {
-                showMessage("Please enter at least 50 characters to analyze.", true);
-                return;
-            }
+            if (text.length < 50) { showMessage("Enter at least 50 characters to analyze.", true); return; }
 
             setLoadingState('btn-analyze', true);
             document.getElementById('det-result').classList.add('hidden');
 
-            const prompt = `Analyze the following text to determine if it is AI-generated.
-            Respond ONLY in valid JSON format using the exact structure below. Do NOT wrap it in markdown block quotes.
-            {
-                "score": <integer from 0 to 100 representing AI probability>,
-                "explanation": "<short string explaining the analysis>",
-                "highlightedText": "<the original text with heavily AI-like phrases wrapped in <mark class='ai-highlight'> tags>"
-            }
-            
-            Text to analyze: \n\n${text}`;
+            const prompt = `Analyze this text to determine if it is AI-generated. 
+            Be extremely critical. Look for low burstiness (uniform sentence length) and low perplexity (highly predictable word choices).
+            Return valid JSON matching the schema.
+            Text to analyze:\n\n${text}`;
 
             try {
                 const responseStr = await callGemini(prompt, true);
                 const result = JSON.parse(responseStr);
                 
-                // Update UI safely
-                if (result.score === undefined) throw new Error("Model returned malformed JSON");
-                updateDetectorUI(result.score, result.explanation, result.highlightedText);
+                // Update UI
+                const resBox = document.getElementById('det-result');
+                const scoreVal = document.getElementById('score-val');
+                const scoreCircle = document.getElementById('score-circle');
+                const scoreTitle = document.getElementById('score-title');
+                
+                scoreVal.innerText = `${result.score}%`;
+                document.getElementById('score-explanation').innerText = result.explanation;
+                document.getElementById('highlighted-text').innerHTML = result.highlightedText || text;
+                
+                // Update new stats
+                const burstEl = document.getElementById('stat-burst');
+                const perpEl = document.getElementById('stat-perp');
+                burstEl.innerText = result.burstiness;
+                perpEl.innerText = result.perplexity;
+                
+                // Color formatting
+                burstEl.style.color = result.burstiness.toLowerCase() === 'low' ? 'var(--danger)' : 'var(--success)';
+                perpEl.style.color = result.perplexity.toLowerCase() === 'low' ? 'var(--danger)' : 'var(--success)';
+
+                let color = 'var(--success)';
+                if (result.score > 40) color = 'var(--warning)';
+                if (result.score > 75) color = 'var(--danger)';
+
+                scoreCircle.style.background = `conic-gradient(${color} ${result.score}%, transparent 0%)`;
+                scoreVal.style.color = color;
+
+                if (result.score <= 40) scoreTitle.innerText = "Likely Human Written";
+                else if (result.score <= 75) scoreTitle.innerText = "Mixed / Heavily Edited";
+                else scoreTitle.innerText = "Highly Likely AI";
+                scoreTitle.style.color = color;
+
+                resBox.classList.remove('hidden');
+                showMessage("Analysis complete!");
 
             } catch (error) {
-                console.error("Analysis Error:", error);
-                showMessage(error.message, true); // Surface exact error to user
+                console.error(error);
+                showMessage("Analysis Error: " + error.message, true);
             } finally {
                 setLoadingState('btn-analyze', false);
             }
         }
 
-        function updateDetectorUI(score, explanation, highlightedText) {
-            const resBox = document.getElementById('det-result');
-            const scoreVal = document.getElementById('score-val');
-            const scoreCircle = document.getElementById('score-circle');
-            const scoreTitle = document.getElementById('score-title');
-            const expl = document.getElementById('score-explanation');
-            const highlights = document.getElementById('highlighted-text');
-
-            scoreVal.innerText = `${score}%`;
-            expl.innerText = explanation || "No explanation provided.";
-            highlights.innerHTML = highlightedText || "No specific highlights available.";
-
-            let color = 'var(--success)';
-            if (score > 40) color = 'var(--warning)';
-            if (score > 70) color = 'var(--danger)';
-
-            scoreCircle.style.background = `conic-gradient(${color} ${score}%, transparent 0%)`;
-            scoreVal.style.color = color;
-
-            if (score <= 40) scoreTitle.innerText = "Likely Human";
-            else if (score <= 70) scoreTitle.innerText = "Mixed Content";
-            else scoreTitle.innerText = "Likely AI-Generated";
-
-            resBox.classList.remove('hidden');
-        }
-
-        // --- HUMANIZER LOGIC ---
+        // ==========================================
+        // TOOL 2: SUPERCHARGED HUMANIZER
+        // ==========================================
         async function humanizeText() {
             const text = document.getElementById('hum-input').value.trim();
-            if (text.length < 10) {
-                showMessage("Please enter some text to humanize.", true);
-                return;
-            }
+            if (text.length < 20) { showMessage("Enter more text to humanize.", true); return; }
 
-            const tone = document.getElementById('tone-selector').value;
+            const level = document.getElementById('hum-aggressiveness').value;
+            const readability = document.getElementById('hum-readability').value;
             setLoadingState('btn-humanize', true);
             
-            const prompt = `Rewrite the following text to sound completely natural, human, and undetectable by AI detectors. Avoid common AI buzzwords. Add natural human burstiness. Tone: ${tone}. Return ONLY the rewritten text, without any conversational filler.\n\nText:\n${text}`;
+            const prompt = `You are an expert human copywriter specializing in evading AI detection algorithms (like Turnitin and GPTZero).
+            Your objective is to rewrite the provided text so it scores 0% on AI detectors.
+            
+            STRICT RULES:
+            1. HIGH BURSTINESS: Drastically vary sentence lengths. Mix very short, punchy sentences (3-5 words) with longer, complex ones.
+            2. HIGH PERPLEXITY: Avoid predictable verbs and adjectives. Use slightly unconventional (but grammatically correct) phrasing.
+            3. FORBIDDEN WORDS: Do NOT use common AI buzzwords under any circumstances: "delve", "tapestry", "testament", "landscape", "crucial", "underscore", "vibrant", "realm", "foster", "catalyst", "multifaceted".
+            4. Add natural transitional imperfections (e.g., start a sentence with "But" or "And" occasionally).
+            5. Do NOT include any intro/outro conversational text. Return ONLY the rewritten text.
+            
+            SETTINGS:
+            - Bypass Strategy: ${level}
+            - Target Readability: ${readability}
+            
+            ORIGINAL TEXT:
+            ${text}`;
 
             try {
                 const rewrittenText = await callGemini(prompt, false);
                 document.getElementById('hum-output').value = rewrittenText.trim();
-                showMessage("Text successfully humanized!");
+                showMessage("Text successfully humanized to bypass detectors!");
             } catch (error) {
-                console.error("Humanizer Error:", error);
-                showMessage(error.message, true); // Surface exact error to user
+                console.error(error);
+                showMessage("Humanizer Error: " + error.message, true);
             } finally {
                 setLoadingState('btn-humanize', false);
+            }
+        }
+
+        // ==========================================
+        // TOOL 3: PARAPHRASER
+        // ==========================================
+        async function paraphraseText() {
+            const text = document.getElementById('para-input').value.trim();
+            if (text.length < 10) { showMessage("Enter text to paraphrase.", true); return; }
+
+            const mode = document.getElementById('para-mode').value;
+            setLoadingState('btn-paraphrase', true);
+            
+            const prompt = `Paraphrase the following text based strictly on the selected mode: [${mode}].
+            
+            Mode definitions:
+            - Standard Fluency: Fix grammar, improve flow, keep length similar.
+            - Creative: Make the tone highly engaging, vivid, and expressive.
+            - Shorten: Be extremely concise, cut fluff, summarize the core points.
+            - Expand: Elaborate on the ideas, add descriptive detail, increase length naturally.
+            
+            Do NOT include conversational filler. Return ONLY the paraphrased text.
+            
+            TEXT TO PARAPHRASE:
+            ${text}`;
+
+            try {
+                const paraphrased = await callGemini(prompt, false);
+                document.getElementById('para-output').value = paraphrased.trim();
+                showMessage("Text successfully paraphrased!");
+            } catch (error) {
+                console.error(error);
+                showMessage("Paraphraser Error: " + error.message, true);
+            } finally {
+                setLoadingState('btn-paraphrase', false);
             }
         }
     </script>
